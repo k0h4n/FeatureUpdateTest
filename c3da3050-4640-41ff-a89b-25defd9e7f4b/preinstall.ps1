@@ -1,0 +1,1 @@
+"Preinstall Powershell Executed" | Add-Content -Path c:\local\preinstall.log
