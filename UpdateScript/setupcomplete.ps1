@@ -1,0 +1,1 @@
+"setupcomplete.ps1 Powershell Executed" | Add-Content -Path c:\local\setupcomplete.log
