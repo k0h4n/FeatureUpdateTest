@@ -69,7 +69,7 @@ $WhiteListedApps.AddRange(@(
     "Microsoft.MicrosoftEdge.Stable"
 ))
 
-Write-LogEntry -Value "Success.ps1 start execution"
+Write-LogEntry -Value "Success.ps1 Start"
 
 # Initial logging
 Write-LogEntry -Value "Starting built-in AppxPackage, AppxProvisioningPackage and Feature on Demand V2 removal process"
