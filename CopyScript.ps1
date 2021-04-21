@@ -18,18 +18,8 @@ $copyParams2 = @{
     Force       = $True
 }
 
-$copyParams3 = @{
-    Path        = ".\SetupINI\SetupConfig.ini"
-    Destination = "C:\Users\Default\AppData\Local\Microsoft\Windows\WSUS\"
-    Recurse     = $True
-    Confirm     = $false
-    Force       = $True
-}
-
 Copy-Item @copyParams
 Copy-Item @copyParams2
-New-Item -Path "c:\Users\Default\AppData\Local\Microsoft\Windows" -Name "WSUS" -ItemType "directory"
-Copy-Item @copyParams3
 
 function Set-UserPermission {
     Param($Path)
@@ -49,6 +39,5 @@ function Set-UserPermission {
 
 Set-UserPermission "c:\Windows\System32\update\run\c3da3050-4640-41ff-a89b-25defd9e7f4b"
 Set-UserPermission "c:\ProgramData\MOTION\script\UpdateScript"
-Set-UserPermission "c:\Users\Default\AppData\Local\Microsoft\Windows\WSUS"
 
 Pop-Location
