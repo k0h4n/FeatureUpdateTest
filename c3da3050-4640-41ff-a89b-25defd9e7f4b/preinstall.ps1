@@ -22,4 +22,26 @@ function Write-LogEntry {
 }
 
 Write-LogEntry -Value "preinstall.ps1 Start"
+
+### Power Configuration Begin
+$CurrentPower = $(Get-WMIObject -NameSpace root\cimv2\power -ClassName win32_PowerPlan -Filter "IsActive=True").ElementName
+
+if ($CurrentPower -ne 'PHM 24/7'){
+    $Set24 = Get-WMIObject -NameSpace root\cimv2\power -ClassName win32_PowerPlan -Filter "ElementName='PHM 24/7'"
+    $set24.InstanceID -match '\w{8}-\w{4}-\w{4}-\w{4}-\w{12}'
+    powercfg /S $matches[0]
+}
+
+If(-Not $(Test-Path "HKLM:\Software\Pertamina\RFC")){
+    New-Item -Path "HKLM:\Software\Pertamina" -Name "RFC"
+}
+
+If(-Not $(Test-Path "HKLM:\Software\Pertamina\RFC\RFC00015")){
+    New-Item -Path "HKLM:\Software\Pertamina\RFC" -Name "RFC00015"
+}
+
+# Set registry properties
+Set-ItemProperty -Path "HKLM:\Software\Pertamina\RFC\RFC00015" -Name "PreviousPower" -Value $CurrentPower
+### Power Configuration End
+
 Write-LogEntry -Value "preinstall.ps1 Complete"
