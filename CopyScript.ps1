@@ -4,7 +4,7 @@ Get-ChildItem -Recurse | Unblock-File
 
 $copyParams = @{
     Path        = ".\c3da3050-4640-41ff-a89b-25defd9e7f4b"
-    Destination = "c:\Windows\System32\update\run\c3da3050-4640-41ff-a89b-25defd9e7f4b\"
+    Destination = "c:\Windows\System32\update\run\"
     Recurse     = $True
     Confirm     = $false
     Force       = $True
@@ -12,7 +12,7 @@ $copyParams = @{
 
 $copyParams2 = @{
     Path        = ".\UpdateScript"
-    Destination = "c:\ProgramData\MOTION\script\UpdateScript\"
+    Destination = "c:\ProgramData\MOTION\script\"
     Recurse     = $True
     Confirm     = $false
     Force       = $True
