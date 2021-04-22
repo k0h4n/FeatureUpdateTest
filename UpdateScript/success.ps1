@@ -21,6 +21,9 @@ function Write-LogEntry {
     }
 }
 
+Write-LogEntry -Value "Success.ps1 Start"
+
+### Clean up Default App Start
 # White list of Features On Demand V2 packages
 $WhiteListOnDemand = "NetFX3|DirectX|Tools.DeveloperMode.Core|Language|InternetExplorer|ContactSupport|OneCoreUAP|WindowsMediaPlayer|Hello.Face|Notepad|MSPaint|PowerShell.ISE|ShellComponents"
 
@@ -68,8 +71,6 @@ $WhiteListedApps.AddRange(@(
 $WhiteListedApps.AddRange(@(
     "Microsoft.MicrosoftEdge.Stable"
 ))
-
-Write-LogEntry -Value "Success.ps1 Start"
 
 # Initial logging
 Write-LogEntry -Value "Starting built-in AppxPackage, AppxProvisioningPackage and Feature on Demand V2 removal process"
@@ -158,5 +159,16 @@ catch [System.Exception] {
 # Complete
 Write-LogEntry -Value "Completed built-in AppxPackage, AppxProvisioningPackage and Feature on Demand V2 removal process"
 
+### Clean up Default App End
+
+### Power Configuration Begin
+$PreviousPower = Get-ItemPropertyValue -Path "HKLM:\Software\Pertamina\RFC\RFC00015" -Name "PreviousPower"
+
+if ($PreviousPower -ne 'PHM 24/7'){
+    $Set24 = Get-WMIObject -NameSpace root\cimv2\power -ClassName win32_PowerPlan -Filter "ElementName='$PreviousPower'"
+    $set24.InstanceID -match '\w{8}-\w{4}-\w{4}-\w{4}-\w{12}'
+    powercfg /S $matches[0]
+}
+### Power Configuration End
 
 Write-LogEntry -Value "Success.ps1 Complete"
