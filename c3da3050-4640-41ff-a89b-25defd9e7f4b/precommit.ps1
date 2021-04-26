@@ -1,5 +1,3 @@
-"precommit.ps1 Powershell Executed" | Add-Content -Path c:\local\precommit.log
-
 # Functions
 function Write-LogEntry {
     param(
