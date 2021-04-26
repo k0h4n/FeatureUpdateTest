@@ -96,6 +96,8 @@ foreach ($App in $AppArrayList) {
             try {
                 Write-LogEntry -Value "Removing AppxPackage: $($AppPackageFullName)"
                 Remove-AppxPackage -Package $AppPackageFullName -ErrorAction Stop | Out-Null
+                
+                Get-AppxPackage -All $AppPackageFullName | Remove-AppPackage -AllUsers
             }
             catch [System.Exception] {
                 Write-LogEntry -Value "Removing AppxPackage '$($AppPackageFullName)' failed: $($_.Exception.Message)"
@@ -110,6 +112,7 @@ foreach ($App in $AppArrayList) {
             try {
                 Write-LogEntry -Value "Removing AppxProvisioningPackage: $($AppProvisioningPackageName)"
                 Remove-AppxProvisionedPackage -PackageName $AppProvisioningPackageName -Online -ErrorAction Stop | Out-Null
+                Get-AppxPackage -All $AppPackageFullName | Remove-AppPackage -AllUsers
             }
             catch [System.Exception] {
                 Write-LogEntry -Value "Removing AppxProvisioningPackage '$($AppProvisioningPackageName)' failed: $($_.Exception.Message)"
