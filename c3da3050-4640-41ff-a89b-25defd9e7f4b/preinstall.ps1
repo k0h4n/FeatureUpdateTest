@@ -30,6 +30,8 @@ if ($CurrentPower -ne 'PHM 24/7'){
     $Set24 = Get-WMIObject -NameSpace root\cimv2\power -ClassName win32_PowerPlan -Filter "ElementName='PHM 24/7'"
     $set24.InstanceID -match '\w{8}-\w{4}-\w{4}-\w{4}-\w{12}'
     powercfg /S $matches[0]
+    
+    Write-LogEntry -Value "Set power configuration to: PHM 24/7"
 }
 
 If(-Not $(Test-Path "HKLM:\Software\Pertamina\RFC")){
@@ -42,6 +44,21 @@ If(-Not $(Test-Path "HKLM:\Software\Pertamina\RFC\RFC00015")){
 
 # Set registry properties
 Set-ItemProperty -Path "HKLM:\Software\Pertamina\RFC\RFC00015" -Name "PreviousPower" -Value $CurrentPower
+Write-LogEntry -Value "Set previous power configuration to: $($CurrentPower)"
 ### Power Configuration End
+
+
+### Clean up Local Policy
+If (Test-Path "C:\Windows\System32\GroupPolicy"){
+    Remove-Item -Recurse -Force "C:\Windows\System32\GroupPolicy"
+    Write-LogEntry -Value "Removing Local Machine Group Policy"
+}
+
+
+If (Test-Path "C:\Windows\System32\GroupPolicyUsers"){
+    Remove-Item -Recurse -Force "C:\Windows\System32\GroupPolicyUsers"
+    Write-LogEntry -Value "Removing Local User Group Policy"
+}
+###
 
 Write-LogEntry -Value "preinstall.ps1 Complete"
