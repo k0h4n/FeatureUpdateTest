@@ -92,6 +92,7 @@ foreach ($App in $AppArrayList) {
         $AppProvisioningPackageName = Get-AppxProvisionedPackage -Online | Where-Object { $_.DisplayName -like $App } | Select-Object -ExpandProperty PackageName -First 1
         
         #Clean up old app from user profile
+        Write-LogEntry -Value "Clean up old user package: $($App)"
         Get-AppxPackage -Name $App -All  | Remove-AppPackage -AllUsers
 
         # Attempt to remove AppxPackage
@@ -171,6 +172,8 @@ if ($PreviousPower -ne 'PHM 24/7'){
     $Set24 = Get-WMIObject -NameSpace root\cimv2\power -ClassName win32_PowerPlan -Filter "ElementName='$PreviousPower'"
     $set24.InstanceID -match '\w{8}-\w{4}-\w{4}-\w{4}-\w{12}'
     powercfg /S $matches[0]
+    
+    Write-LogEntry -Value "Set power configuration to: $($PreviousPower)"
 }
 ### Power Configuration End
 
