@@ -90,14 +90,15 @@ foreach ($App in $AppArrayList) {
         # Gather package names
         $AppPackageFullName = Get-AppxPackage -Name $App | Select-Object -ExpandProperty PackageFullName -First 1
         $AppProvisioningPackageName = Get-AppxProvisionedPackage -Online | Where-Object { $_.DisplayName -like $App } | Select-Object -ExpandProperty PackageName -First 1
+        
+        #Clean up old app from user profile
+        Get-AppxPackage -Name $App -All  | Remove-AppPackage -AllUsers
 
         # Attempt to remove AppxPackage
         if ($AppPackageFullName -ne $null) {
             try {
                 Write-LogEntry -Value "Removing AppxPackage: $($AppPackageFullName)"
                 Remove-AppxPackage -Package $AppPackageFullName -ErrorAction Stop | Out-Null
-                
-                Get-AppxPackage -All $AppPackageFullName | Remove-AppPackage -AllUsers
             }
             catch [System.Exception] {
                 Write-LogEntry -Value "Removing AppxPackage '$($AppPackageFullName)' failed: $($_.Exception.Message)"
@@ -112,7 +113,6 @@ foreach ($App in $AppArrayList) {
             try {
                 Write-LogEntry -Value "Removing AppxProvisioningPackage: $($AppProvisioningPackageName)"
                 Remove-AppxProvisionedPackage -PackageName $AppProvisioningPackageName -Online -ErrorAction Stop | Out-Null
-                Get-AppxPackage -All $AppPackageFullName | Remove-AppPackage -AllUsers
             }
             catch [System.Exception] {
                 Write-LogEntry -Value "Removing AppxProvisioningPackage '$($AppProvisioningPackageName)' failed: $($_.Exception.Message)"
