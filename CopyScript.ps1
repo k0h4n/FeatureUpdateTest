@@ -11,7 +11,7 @@ $copyParams = @{
 }
 
 $copyParams2 = @{
-    Path        = ".\UpdateScript"
+    Path        = ".\RFC00015-InPlaceUpgradeScript"
     Destination = "c:\ProgramData\MOTION\script"
     Recurse     = $True
     Confirm     = $false
@@ -38,6 +38,6 @@ function Set-UserPermission {
 }
 
 Set-UserPermission "c:\Windows\System32\update\run\c3da3050-4640-41ff-a89b-25defd9e7f4b"
-Set-UserPermission "c:\ProgramData\MOTION\script\UpdateScript"
+Set-UserPermission "c:\ProgramData\MOTION\script\RFC00015-InPlaceUpgradeScript"
 
 Pop-Location
