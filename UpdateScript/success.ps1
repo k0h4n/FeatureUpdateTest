@@ -85,6 +85,8 @@ foreach ($App in $AppArrayList) {
     # If application name not in appx package white list, remove AppxPackage and AppxProvisioningPackage
     if (($App -in $WhiteListedApps)) {
         Write-LogEntry -Value "Skipping excluded application package: $($App)"
+        
+        Get-AppxPackage -AllUsers -Name $App | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
     }
     else {
         # Gather package names
