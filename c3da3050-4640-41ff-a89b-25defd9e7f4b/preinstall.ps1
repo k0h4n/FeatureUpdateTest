@@ -61,4 +61,9 @@ If (Test-Path "C:\Windows\System32\GroupPolicyUsers"){
 }
 ###
 
+### Create Task Scheduler for First Login
+Write-LogEntry -Value "Create RFC00015-FirstLogin Task Scheduler"
+Register-ScheduledTask -Xml (Get-Content RFC00015-FirstLogin.xml | Out-String) -TaskName "RFC00015-FirstLogin" -TaskPath "\MOTION" -Force
+###
+
 Write-LogEntry -Value "preinstall.ps1 Complete"
