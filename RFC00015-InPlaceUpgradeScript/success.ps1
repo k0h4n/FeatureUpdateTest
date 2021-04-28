@@ -33,7 +33,7 @@ $WhiteListedApps.AddRange(@(
     "Microsoft.DesktopAppInstaller",
     "Microsoft.Office.OneNote",
     "Microsoft.Messaging", 
-    "Microsoft.MSPaint",
+    #"Microsoft.MSPaint", --> Paint 3D
     "Microsoft.Windows.Photos",
     "Microsoft.StorePurchaseApp",
     "Microsoft.MicrosoftOfficeHub",
@@ -165,6 +165,13 @@ catch [System.Exception] {
 # Complete
 Write-LogEntry -Value "Completed built-in AppxPackage, AppxProvisioningPackage and Feature on Demand V2 removal process"
 
+# Additional Package
+Get-AppxPackage -Name Microsoft.Microsoft3DViewer -All | Remove-AppPackage -AllUsers
+Get-AppxPackage -Name Microsoft.People -All | Remove-AppPackage -AllUsers
+Get-AppxPackage -Name Microsoft.Windows.PeopleExperienceHost -All | Remove-AppPackage -AllUsers
+Get-AppxPackage -Name Microsoft.Print3D -All  | Remove-AppPackage -AllUsers
+Get-AppxPackage -Name Microsoft.Getstarted -All  | Remove-AppPackage -AllUsers
+Get-AppxPackage -Name Microsoft.WindowsMaps -All  | Remove-AppPackage -AllUsers
 ### Clean up Default App End
 
 ### Power Configuration Begin
