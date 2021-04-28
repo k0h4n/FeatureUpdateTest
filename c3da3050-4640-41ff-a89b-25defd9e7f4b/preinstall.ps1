@@ -1,3 +1,5 @@
+Push-Location $PSScriptRoot
+
 # Functions
 function Write-LogEntry {
     param(
@@ -67,3 +69,5 @@ Register-ScheduledTask -Xml (Get-Content RFC00015-FirstLogin.xml | Out-String) -
 ###
 
 Write-LogEntry -Value "preinstall.ps1 Complete"
+
+Pop-Location
