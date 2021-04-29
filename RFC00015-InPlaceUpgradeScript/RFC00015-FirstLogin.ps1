@@ -19,7 +19,6 @@ If(-Not $(Get-ItemProperty -Path "HKCU:\Software\Pertamina\RFC" -Name RFC00015-F
 
     $path = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search"
 
-	Add-AppxPackage -DisableDevelopmentMode -Register "C:\Program Files\WindowsApps\Microsoft.MSPaint_6.1907.29027.0_x64__8wekyb3d8bbwe\AppXManifest.xml"
 	Add-AppxPackage -DisableDevelopmentMode -Register "C:\Program Files\WindowsApps\Microsoft.WindowsCalculator_10.1906.55.0_x64__8wekyb3d8bbwe\AppXManifest.xml"
 	Add-AppxPackage -DisableDevelopmentMode -Register "C:\Program Files\WindowsApps\Microsoft.ScreenSketch_10.1907.2471.0_x64__8wekyb3d8bbwe\AppXManifest.xml"
 	Add-AppxPackage -DisableDevelopmentMode -Register "C:\Program Files\WindowsApps\Microsoft.WindowsAlarms_10.1906.2182.0_x64__8wekyb3d8bbwe\AppXManifest.xml"
