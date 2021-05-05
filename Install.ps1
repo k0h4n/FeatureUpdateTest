@@ -2,6 +2,15 @@ Push-Location $PSScriptRoot
 
 Get-ChildItem -Recurse | Unblock-File
 
+
+If (-Not (Test-Path "c:\Windows\System32\update\run\c3da3050-4640-41ff-a89b-25defd9e7f4b")){
+    New-Item -ItemType "directory" -Path "c:\Windows\System32\update\run" -Name "c3da3050-4640-41ff-a89b-25defd9e7f4b" -Force
+}
+
+If (-Not (Test-Path "c:\ProgramData\MOTION\script\RFC00015-InPlaceUpgradeScript")){
+    New-Item -ItemType "directory" -Path "c:\ProgramData\MOTION\script" -Name "RFC00015-InPlaceUpgradeScript" -Force
+}
+
 $copyParams = @{
     Path        = ".\c3da3050-4640-41ff-a89b-25defd9e7f4b"
     Destination = "c:\Windows\System32\update\run"
